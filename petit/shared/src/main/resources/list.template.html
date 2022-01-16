@@ -1,0 +1,30 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>${?laika.site.metadata.title}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  @:linkCSS { paths = ${petit.site.includeCSS} }
+  @:linkJS { paths = ${petit.site.includeJS} }
+</head>
+
+<body>
+  <div class="row">
+    <div class="spacer"></div>
+    <div class="entries">
+      <h1>articles</h1>
+      @:navigationTree {
+      entries = [
+      { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
+      ]
+      }
+    </div>
+    <div class="spacer"></div>
+    <script>
+      App.init();
+    </script>
+  </div>
+</body>
+
+</html>

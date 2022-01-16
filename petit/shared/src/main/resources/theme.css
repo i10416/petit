@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in
+ *    IE on Windows Phone and in iOS.
+ */
+html {
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.15; /*1*/
+  -ms-text-size-adjust: 100%; /*2*/
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+
+/*reset*/
+/* taken from https://github.com/elad2412/the-new-css-reset*/ 
+/*** The new CSS Reset - version 1.4.5 (last updated 13.1.2022) ***/
+
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+ */
+ *:where(:not(iframe, canvas, img, svg, video):not(svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+
+a:link, a:visited {
+  opacity: 1;
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+  -o-transition: all .15s linear;
+  -ms-transition: all .15s linear;
+  transition: all .15s linear;
+    color: #4781de;
+}
+a:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* fix the feature of 'hidden' attribute.
+ display:revert; revert to element instead of attribute */
+:where([hidden]){
+  display:none;
+}
+
+/* revert for bug in Chromium browsers
+ - fix for the content editable attribute will work properly. */
+:where([contenteditable]){
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  line-break: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+  -webkit-user-drag: element;
+}
+/*reset*/
+body {
+  margin: 0;
+  word-break:break-word;
+  padding: 0; 
+  font-size: 15px;
+  line-height: 2.0em;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+/**
+ * Add the correct display in IE 9-.
+ */
+
+ article,
+ aside,
+ footer,
+ header,
+ nav,
+ section {
+   display: block;
+ }
+
+/*--typography--*/
+
+body h1,h2 {
+  font-weight: bold;
+}
+
+body  h1,h2,h3,h4,h5,h6 {
+  line-height: 1.25;
+  text-rendering: optimizeLegibility;
+}
+
+body h1 {
+  margin-bottom: 0.5rem;
+  font-size:2rem;
+  font-weight: bold;
+  color:#494848;
+  text-rendering: optimizeLegibility;
+}
+body h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  text-rendering: optimizeLegibility;
+}
+body h3 {
+  font-size: 1.25rem;
+  margin: 12px 0px;
+}
+p {
+  line-height: 1.9em;
+  font-weight: 400;
+  font-size: 16px;
+  color:#2f2f2a;
+}
+b, strong {
+  font-weight: bolder;
+}
+
+blockquote {
+  font-style: italic;
+  padding: 12px;
+  background:rgba(220, 220, 220, 0.3);
+  margin: 8px 0px;
+}
+
+@media(min-width: 58em)  {
+html {
+  font-size: 20px;
+  }
+}
+
+
+@media(min-width: 48em)  {
+  html {
+    font-size: 16px;
+  }
+}
+
+table {
+  margin: 24px 0px;
+  border-collapse: collapse;
+  border-color: #cccccc;
+}
+
+table td {
+  padding: 3px 20px;
+  border: 1px solid #ccc;
+}
+table thead th {
+  padding: 6px 13px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+}
+
+
+a:link, a:visited {
+  opacity: 1;
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+  -o-transition: all .15s linear;
+  -ms-transition: all .15s linear;
+  transition: all .15s linear;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+hr {
+  height: 4px;
+  padding: 0;
+  margin: 1.7em 0;
+  overflow: hidden;
+  background-color: #e7e7e7;
+  border: none;
+}
+
+
+:root {
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 960px;
+}
+/*--layout--*/
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.half {
+  flex:1;
+}
+.half.sibling {
+  padding: 16px;
+}
+.half.sibling.left {
+  text-align: left;
+}
+
+.half.sibling.right {
+  text-align: right;
+}
+
+#page {
+  display:flex;
+  flex-direction: row;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+#drawer {
+  padding: 48px 12px;
+  transition: all 0.3s cubic-bezier();
+}
+#drawer .active {
+  display: block;
+  flex:1;
+}
+#main {
+  flex: 1;
+  flex-shrink: 1;
+       min-width:0;
+
+}
+#content {
+  display: flex;
+  flex-direction: row;
+  padding: 48px 16px;
+}
+.spacer {
+  flex: 1;
+  min-width:0;
+}
+.spacer.left {
+  max-width: 90px;
+}
+#article {
+  flex: 2;
+   min-width:0;
+
+}
+/*================  Layout =========================*/
+@media only screen and (max-width: 780px) {
+  .spacer {
+    display: none;
+  }
+}
+
+
+
+/*code*/
+code {
+  font-family: monospace, sans-serif;
+  background-color: rgba(27,31,35,.05);
+  vertical-align: middle;
+  padding: 0.25em 0.5em;
+  border-radius:3px;
+}
+pre {
+  padding: 1rem;
+  border-radius: 6px;
+
+}
+pre code {
+  border: none;
+  background: none;
+  color: #b69495;
+}
+
+code .keyword {
+  color: rgb(255 152 113);
+}
+
+code .escape-sequence {
+
+}
+code .type-name  {
+  color: #e6dc6e;
+}
+code .tag-name {
+  color: #b4b4b1;
+}
+
+code .attribute-name {
+}
+code .declaration-name {
+
+}
+
+code .identifier {
+  color: #a3c0c9;
+
+}
+code .number-literal {
+  color: rgb(107 196 151);
+}
+code .string-literal {
+  color: #db5d41;
+
+}
+code .literal-value {}
+code .boolean-literal {
+  color:#ff57c1;
+}
+code .char-literal {}
+code .markup-link-text {}
+code .markup-link-target {}
+code .markup-emphasized {}
+code .substitution {}
+code .tag-punctuation {
+  color: #d9b52f;
+}
+
+code .comment {
+ color: rgb(169 162 151);
+}
+
+
+pre {
+ background: #212533;
+  overflow-x: auto;
+  white-space: pre;
+  margin:16px 0px;
+  display: block;
+  padding: 1rem;
+  line-height:1.7rem;
+  font-family: monospace, sans-serif;
+}
+pre code {
+  background: none;
+}
+.callout {
+  padding: 16px;
+  border-radius:8px;
+  margin: 16px 0px;
+  background:rgba(220, 220, 220, 0.3);
+}
+
+.callout.warning {
+  border-left: 8px solid #f2c33e;
+  background:rgb(220 199 164 / 30%);
+}

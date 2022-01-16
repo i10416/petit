@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="${?laika.site.metadata.language}">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="generator" content="Laika">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${cursor.currentDocument.title}</title>
+  @:linkCSS { paths = ${petit.site.includeCSS} }
+</head>
+
+<body>
+  <div id="page">
+    <nav id="drawer">
+      @:navigationTree {
+      entries = [
+      { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
+      ]
+      }
+    </nav>
+    <div id="main">
+      <div id="content">
+        <div class="spacer left"></div>
+        <div id="article">
+          ${cursor.currentDocument.content}
+        </div>
+        <div class="spacer"></div>
+      </div>
+      <div class="row">
+        <div class="spacer left"></div>
+        <div class="half sibling left">
+          @:prevDoc
+        </div>
+        <div class="half sibling right">
+          @:nextDoc
+        </div>
+        <div class="spacer"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
