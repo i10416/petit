@@ -41,7 +41,9 @@ a:link, a:visited {
   -o-transition: all .15s linear;
   -ms-transition: all .15s linear;
   transition: all .15s linear;
-    color: #4781de;
+  color: #4781de;
+  cursor: pointer;
+
 }
 a:hover {
   opacity: 0.8;
@@ -122,15 +124,17 @@ body  h1,h2,h3,h4,h5,h6 {
 }
 
 body h1 {
-  margin-bottom: 0.5rem;
-  font-size:2rem;
+  margin: 2rem 0em;
+  font-size:2.5rem;
   font-weight: bold;
-  color:#494848;
+  color:#2b2a2a;
   text-rendering: optimizeLegibility;
 }
 body h2 {
+  color: #2e2d2d;
   font-size: 1.5rem;
   line-height: 1.25;
+  margin: 1.5rem 0rem;
   text-rendering: optimizeLegibility;
 }
 body h3 {
@@ -365,7 +369,17 @@ pre code {
   background:rgba(220, 220, 220, 0.3);
 }
 
+.callout.info {
+  border-left: 8px solid #5fc2f3;
+  background:rgb(164 197 220 / 30%);
+}
+
 .callout.warning {
   border-left: 8px solid #f2c33e;
   background:rgb(220 199 164 / 30%);
+}
+
+.callout.error {
+  border-left: 8px solid #f23e3e;
+  background:rgb(251 234 234 / 30%);
 }
