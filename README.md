@@ -72,6 +72,8 @@ createTransformer[IO].use {
 - Drop the feedback to the author @i10416
 - Send a PR with fixes of typos/bugs/etc🐛
 
+## License
+Licensed under the Apache License, Version 2.0.
 
 
 ## todo
