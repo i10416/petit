@@ -1,4 +1,4 @@
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_3.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_3/)
+[![Release](https://github.com/i10416/petit/actions/workflows/release.yaml/badge.svg)](https://github.com/i10416/petit/actions/workflows/release.yaml)
 
 ## Laika Theme: Petit
 
