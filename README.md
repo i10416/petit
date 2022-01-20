@@ -30,8 +30,6 @@ import $ivy.`org.planet42::laika-io:0.18.1`
 import $ivy.`org.typelevel::cats-effect:3.3.1`
 ```
 
-
-
 Directory Structure
 
 
@@ -68,6 +66,13 @@ createTransformer[IO].use {
   _.fromDirectory("<src>").toDirectory("<dist>").transform
 }.unsafeRunSync()
 ```
+
+## How to contribute?
+- Give it a star⭐
+- Drop the feedback to the author @i10416
+- Send a PR with fixes of typos/bugs/etc🐛
+
+
 
 ## todo
 - publish
