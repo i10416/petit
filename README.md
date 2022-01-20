@@ -1,6 +1,12 @@
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_3.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_3/)
+
 ## Laika Theme: Petit
 
 Simple blog theme for Scala 2.12,2.13 and 3.
+
+|scala 2.12| scala 2.13|scala 3|
+|---|---|---|
+|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.12.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.12/)|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.13.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.13/)|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_3.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_3/)|
 
 ### How to Use
 
