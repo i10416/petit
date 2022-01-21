@@ -82,6 +82,7 @@ Licensed under the Apache License, Version 2.0.
   - [ ] release 0.0.1
 - [ ] sitemap generator
 - [ ] rss generator
+- [ ] add search
 - [ ] ToC
 - [ ] add line numbers, line highlight,emphasize options for code blocks
 - [ ] format scala code before transform
