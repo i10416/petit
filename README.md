@@ -80,7 +80,9 @@ Licensed under the Apache License, Version 2.0.
 - publish
   - [x] release snapshot
   - [ ] release 0.0.1
-- [ ] add ToC
+- [ ] sitemap generator
+- [ ] rss generator
+- [ ] ToC
 - [ ] add line numbers, line highlight,emphasize options for code blocks
 - [ ] format scala code before transform
 - [ ] enable `foo.ext:title` syntax for code blocks
