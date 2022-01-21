@@ -12,17 +12,27 @@ import laika.io.model.InputTree
 import laika.rewrite.nav.TitleDocumentConfig
 
 object Petit extends ThemeProvider {
-  private def conf = ConfigBuilder.empty.withValue(
-    "petit.site.includeCSS",
-    (Path.Root / "petit" / "css") +: Nil
-  ).withValue(
-    "petit.site.includeJS",
-    (Path.Root/"petit" /"js")+:Nil
-  )
+  private def conf = ConfigBuilder.empty
+    .withValue(
+      "petit.site.includeCSS",
+      (Path.Root / "petit" / "css") +: Nil
+    )
+    .withValue(
+      "petit.site.includeJS",
+      (Path.Root / "petit" / "js") +: Nil
+    )
+    .withValue(PlainIcons.registry)
+
   private def styles[F[_]: Sync] = InputTree
     .apply[F]
-    .addClasspathResource("default.template.html",Path.Root / "default.template.html")
-    .addClasspathResource("list.template.html",Path.Root / "list.template.html")
+    .addClasspathResource(
+      "default.template.html",
+      Path.Root / "default.template.html"
+    )
+    .addClasspathResource(
+      "list.template.html",
+      Path.Root / "list.template.html"
+    )
     .addClasspathResource(
       "theme.css",
       Path.Root / "petit" / "css" / "theme.css"
@@ -31,8 +41,7 @@ object Petit extends ThemeProvider {
       "main.js",
       Path.Root / "petit" / "js" / "main.js"
     )
-   // addClasspathResource("drawer.js",Path.Root/"petit"/"css"/"drawer.js")
-
+  // addClasspathResource("drawer.js",Path.Root/"petit"/"css"/"drawer.js")
 
   private def addListPage[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli {
     tree =>
