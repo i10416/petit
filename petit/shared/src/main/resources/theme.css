@@ -112,6 +112,12 @@ body {
    display: block;
  }
 
+/* variables */
+:root {
+  --drawer-width: 300px;
+}
+
+
 /*--typography--*/
 
 body h1,h2 {
@@ -241,14 +247,11 @@ hr {
   margin: 0;
   padding: 0;
 }
-#drawer {
+#drawer-content {
   padding: 48px 12px;
-  transition: all 0.3s cubic-bezier();
+  width: var(--drawer-width);
 }
-#drawer .active {
-  display: block;
-  flex:1;
-}
+
 #main {
   flex: 1;
   flex-shrink: 1;
@@ -279,9 +282,12 @@ hr {
   }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 640px){
   #drawer {
-    display: none;
+    height: 100%;
+    position: fixed;
+    transform: translateX(calc(var(--drawer-width) * -1));
+    background:#e1e3e5;
   }
 }
 

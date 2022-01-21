@@ -13,11 +13,13 @@
 <body>
   <div id="page">
     <nav id="drawer">
-      @:navigationTree {
-      entries = [
-      { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
-      ]
-      }
+      <div id="drawer-content">
+        @:navigationTree {
+          entries = [
+          { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
+          ]
+          }
+      </div>
     </nav>
     <div id="main">
       <div id="content">
