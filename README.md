@@ -80,7 +80,7 @@ Licensed under the Apache License, Version 2.0.
 - publish
   - [x] release snapshot
   - [ ] release 0.0.1
-- [ ] sitemap generator
+- [x] sitemap generator
 - [ ] rss generator
 - [ ] add search
 - [ ] ToC
