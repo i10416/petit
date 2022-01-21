@@ -5,6 +5,7 @@ val scala213 = "2.13.7"
 val scala3 = "3.1.0"
 inThisBuild(
   Seq(
+    versionScheme := Some("early-semver"),
     organization := "dev.i10416",
     licenses := List(
       "Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")
@@ -18,7 +19,8 @@ inThisBuild(
         url("https://github.com/i10416")
       )
     ),
-    scalacOptions ++= Nil,
+    scalacOptions ++= Seq("-feature","-deprecation"),
+    scalacOptions ++= Seq("-language:higherKinds"),
     sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
   )
