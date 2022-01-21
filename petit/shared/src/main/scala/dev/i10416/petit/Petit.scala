@@ -12,6 +12,7 @@ import laika.io.model.InputTree
 import laika.rewrite.nav.TitleDocumentConfig
 import laika.io.model.BinaryInput
 import laika.rewrite.nav.TargetFormats
+import laika.config.ConfigError
 
 object Petit extends ThemeProvider {
   private def conf = ConfigBuilder.empty
@@ -78,7 +79,9 @@ object Petit extends ThemeProvider {
   private def addSiteMap[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli { tree =>
     val paths = tree.root.allDocuments
       .map(doc => (doc.config.get[String]("petit.site.host"),doc.path.relativeTo(Path.Root).parent.name))
-      .distinctBy(_._2)
+      .foldLeft(List.empty[(Either[ConfigError,String],String)]) {case (acc,(l,r)) =>
+          if(acc.exists{case (_,b)=> b == r}) acc else  (l,r) :: acc  
+      }
     val baseURL: String = "test"
     val xml = s"""
       |<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
