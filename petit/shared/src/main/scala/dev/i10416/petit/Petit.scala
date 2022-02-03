@@ -13,8 +13,19 @@ import laika.rewrite.nav.TitleDocumentConfig
 import laika.io.model.BinaryInput
 import laika.rewrite.nav.TargetFormats
 import laika.config.ConfigError
+import dev.i10416.petit.static.SiteMap
+import dev.i10416.petit.static.RSS
+import java.time.LocalDateTime
+import laika.ast.SpanSequence
+import cats.Monad
 
 object Petit extends ThemeProvider {
+
+  /** enable access css and js with link directives from templates
+    *
+    * e.g. `@:linkCSS { paths = ${petit.site.includeCSS} }` at
+    * default.template.html
+    */
   private def conf = ConfigBuilder.empty
     .withValue(
       "petit.site.includeCSS",
@@ -26,6 +37,8 @@ object Petit extends ThemeProvider {
     )
     .withValue(PlainIcons.registry)
 
+  /** inject thml template and css, js assets into InputTree
+    */
   private def styles[F[_]: Sync] = InputTree
     .apply[F]
     .addClasspathResource(
@@ -76,29 +89,51 @@ object Petit extends ThemeProvider {
 
       Sync[F].pure(transformed)
   }
-  private def addSiteMap[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli { tree =>
+
+  /** Add rss in document tree
+    */
+  private def addRSS[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli { tree =>
+    val host =
+      tree.root.config.get[String]("petit.site.host").getOrElse("localhost")
     val paths = tree.root.allDocuments
-      .map(doc => (doc.config.get[String]("petit.site.host"),doc.path.relativeTo(Path.Root).parent.name))
-      .foldLeft(List.empty[(Either[ConfigError,String],String)]) {case (acc,(l,r)) =>
-          if(acc.exists{case (_,b)=> b == r}) acc else  (l,r) :: acc  
-      }
-    val baseURL: String = "test"
-    val xml = s"""
-      |<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      | ${paths
-      .map{case (url,p) => s"""
-                           |  <url>
-                           |    <loc> ${url.getOrElse("localhost")}/$p/index.html</loc>
-                           |    <!-- <lastmod>???</lastmod> -->
-                           |  </url>
-                           |""".stripMargin}
-      .mkString}
-      |</urlset>
-      |""".stripMargin
+      .map(doc =>
+        (
+          doc.title.getOrElse(SpanSequence.apply("")).extractText,
+          doc.path.relativeTo(Path.Root).parent.name
+        )
+      )
+      .distinct
+    val xml = RSS.atom(host, LocalDateTime.now, paths)
+    val rss = BinaryInput
+      .fromString[F](
+        Path.Root / "atom.xml",
+        xml,
+        TargetFormats.Selected("html", "HTML")
+      )
+    Sync[F].pure(tree.addStaticDocuments(Seq(rss)))
+  }
+
+  /** Add static resource in document tree
+    */
+  private def addSiteMap[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli { tree =>
+    val host =
+      tree.root.config.get[String]("petit.site.host").getOrElse("localhost")
+    val paths = tree.root.allDocuments
+      .map(doc => doc.path.relativeTo(Path.Root).parent.name)
+      .distinct
+    val xml = SiteMap.apply(host, None, paths.toList)
     val sitemap = BinaryInput
-      .fromString[F](Path.Root / "sitemap.xml", xml, TargetFormats.Selected("html","HTML"))
+      .fromString[F](
+        Path.Root / "sitemap.xml",
+        xml,
+        TargetFormats.Selected("html", "HTML")
+      )
     Sync[F].pure(tree.addStaticDocuments(Seq(sitemap)))
   }
+
+  /** Build Petit theme. This theme also contains Laika Standard Directives,
+    * GithubMarkdown Support and SyntaxHighlighting.
+    */
   def build[F[_]: Sync]: Resource[F, Theme[F]] = ThemeBuilder
     .apply[F]("Petit")
     .addExtensions(
@@ -111,5 +146,6 @@ object Petit extends ThemeProvider {
     .addBaseConfig(conf.build)
     .processTree(addListPage, HTML)
     .processTree(addSiteMap, HTML)
+    .processTree(addRSS, HTML)
     .build
 }

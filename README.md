@@ -81,7 +81,9 @@ Licensed under the Apache License, Version 2.0.
   - [x] release snapshot
   - [ ] release 0.0.1
 - [x] sitemap generator
-- [ ] rss generator
+- [x] rss generator
+- [ ] automatically generate last modified date time
+- [ ] link with ogp info directive
 - [ ] add search
 - [ ] ToC
 - [ ] add line numbers, line highlight,emphasize options for code blocks

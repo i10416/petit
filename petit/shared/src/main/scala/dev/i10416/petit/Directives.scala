@@ -11,12 +11,28 @@ import laika.ast.{
   TemplateElement,
   TemplateSpan
 }
+import laika.directive.Spans
+import laika.ast.Image
+import laika.ast.Remove
+import laika.ast.Span
+import laika.ast.Paragraph
+import laika.ast.TextContainer
 private[this] object PetitDirectives extends DirectiveRegistry {
+
 
   private def docLink(d: DocumentCursor) = SpanLink(
     d.target.title.getOrElse(SpanSequence(Text(d.path.toString) +: Nil)) +: Nil,
     InternalTarget(PathBase.parse(d.path.toString))
   )
+
+  val toc = Templates.create("toc") {
+    import Templates.dsl._
+    cursor.map { cursor =>
+      ???
+    }
+  }
+
+
   private val EmptyTemplateElement = TemplateElement(Deleted(Nil))
   val prevDoc = Templates.create("prevDoc") {
     import Templates.dsl._
