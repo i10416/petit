@@ -2,7 +2,7 @@ package dev.i10416.petit.static
 
 import dev.i10416.petit.SiteMetaData
 import java.time.LocalDateTime
-
+import laika.time.PlatformDateFormat
 object RSS {
   private val theme = "Petit theme(github.com/i10416/petit)"
 
@@ -28,7 +28,7 @@ object RSS {
   def atom(
       baseURL: String,
       lastBuildDate: LocalDateTime,
-      paths: Seq[(String, String)] = Nil,
+      items: Seq[(String, String)] = Nil,
       title: String = "",
       language: Option[String] = None
   ) =
@@ -36,7 +36,7 @@ object RSS {
         |<feed xmlns="http://www.w3.org/2005/Atom">
         |
         |  <id>${baseURL}</id>
-        |  <title>${title}</title>
+        |  <title>${if (title.isEmpty) baseURL else title}</title>
         |  <updated>${lastBuildDate}</updated>
         |  <link rel='self' type='application/atom+xml' href='${baseURL}/atom.xml'> ${baseURL} </link>
         |
@@ -46,9 +46,9 @@ object RSS {
 |  <copyright>${ /*copyWrightOwners.mkString(", ")*/ } </copyright>
         |  <!-- todo: format datetime correctly -->
         |  <lastBuildDate>${lastBuildDate}</lastBuildDate>
-        |  ${paths.map { case (title, path) =>
+        |  ${items.map { case (title, path) =>
       atomItem(s"${baseURL}/$path", s"${baseURL}/$path", title)
-    }}
+    }.mkString}
         |</feed>
         |""".stripMargin
   def v2(
