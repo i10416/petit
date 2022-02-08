@@ -82,6 +82,7 @@ Licensed under the Apache License, Version 2.0.
   - [ ] release 0.0.1
 - [x] sitemap generator
 - [x] rss generator
+- [ ] minify css
 - [ ] automatically generate last modified date time
 - [ ] link with ogp info directive
 - [ ] add search
