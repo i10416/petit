@@ -25,14 +25,15 @@
       <div id="content">
         <div class="spacer left"></div>
         <div id="article">
+          ${cursor.currentDocument.content}
+        </div>
+        <div class="spacer">
           @:navigationTree {
             entries = [
               { target = "#", excludeRoot = true, depth = 2 }
             ]
           }
-          ${cursor.currentDocument.content}
         </div>
-        <div class="spacer"></div>
       </div>
       <div class="row">
         <div class="spacer left"></div>
