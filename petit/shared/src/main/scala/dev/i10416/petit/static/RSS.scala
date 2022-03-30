@@ -47,8 +47,8 @@ object RSS {
         |  <!-- todo: format datetime correctly -->
         |  <lastBuildDate>${lastBuildDate}</lastBuildDate>
         |  ${items.map { case (title, path) =>
-      atomItem(s"${baseURL}/$path", s"${baseURL}/$path", title)
-    }.mkString}
+         atomItem(s"${baseURL}/$path", s"${baseURL}/$path", title)
+       }.mkString}
         |</feed>
         |""".stripMargin
   def v2(
