@@ -40,6 +40,6 @@ lazy val lib = crossProject(JSPlatform, JVMPlatform)
     publish / skip := true,
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % "2.1.0",
-      "co.fs2" %%% "fs2-core" % "3.2.0"
+      "co.fs2" %%% "fs2-core" % "3.2.7"
     )
   )
