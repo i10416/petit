@@ -2,7 +2,7 @@
 // using lib org.planet42::laika-io:0.18.1
 // using lib org.typelevel::cats-effect:3.3.4
 // using lib dev.i10416::petit:0.0.1
-import cats.effect.{IO,Async,Sync, Resource}
+import cats.effect.{IO, Async, Sync, Resource}
 import laika.format
 import dev.i10416.petit.Petit
 import laika.io.api.TreeTransformer
