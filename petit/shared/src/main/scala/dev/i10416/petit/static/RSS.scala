@@ -43,7 +43,8 @@ object RSS {
         |  <description>Recent contents on ${baseURL}</description>
         |  <generator>Laika(planet42.org/Laika) with $theme </generator>
         |  ${language.fold("")(l => s"<language>$l</language>")}
-|  <copyright>${ /*copyWrightOwners.mkString(", ")*/ } </copyright>
+|  <copyright>${/*copyWrightOwners.mkString(", ")*/
+       } </copyright>
         |  <!-- todo: format datetime correctly -->
         |  <lastBuildDate>${lastBuildDate}</lastBuildDate>
         |  ${items.map { case (title, path) =>
@@ -66,7 +67,8 @@ object RSS {
         |    <description>Recent contents on ${baseURL}</description>
         |    <generator>Laika(planet42.org/Laika) with $theme </generator>
         |    ${language.fold("")(l => s"<language>$l</language>")}
-|    <copyright>${ /*metaData.copyWrightOwners.mkString(", ")*/ } </copyright>
+|    <copyright>${/*metaData.copyWrightOwners.mkString(", ")*/
+       } </copyright>
         |    <!-- todo: format datetime correctly -->
         |    <lastBuildDate>${lastBuildDate}</lastBuildDate>
         |    ...items
