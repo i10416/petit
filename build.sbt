@@ -33,7 +33,7 @@ lazy val lib = crossProject(JSPlatform, JVMPlatform)
     scalaVersion := scala3,
     crossScalaVersions := Seq(scala212, scala213, scala3),
     libraryDependencies ++= Dependencies.deps ++ Seq(
-      "org.typelevel" %%% "cats-effect" % "3.3.9"
+      "org.typelevel" %%% "cats-effect" % "3.3.10"
     )
   )
   .jsSettings(
