@@ -83,10 +83,10 @@ Licensed under the Apache License, Version 2.0.
 - [x] sitemap generator
 - [x] rss generator
 - [ ] minify css
+  - see https://github.com/i10416/cssminifier
 - [ ] automatically generate last modified date time
 - [ ] link with ogp info directive
 - [ ] add search
-- [ ] ToC
 - [ ] add line numbers, line highlight,emphasize options for code blocks
 - [ ] format scala code before transform
 - [ ] enable `foo.ext:title` syntax for code blocks
