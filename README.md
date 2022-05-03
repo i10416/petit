@@ -4,19 +4,19 @@
 
 Simple blog theme for Scala 2.12,2.13 and 3.
 
-|scala 2.12| scala 2.13|scala 3|
-|---|---|---|
-|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.12.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.12/)|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.13.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.13/)|[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_3.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_3/)|
+| scala 2.12                                                                                                                                                                                               | scala 2.13                                                                                                                                                                                               | scala 3                                                                                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.12.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.12/) | [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_2.13.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_2.13/) | [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/s01.oss.sonatype.org/dev.i10416/petit_3.svg)](https://s01.oss.sonatype.org/content/repositories/snapshots/dev/i10416/petit_3/) |
 
 ### How to Use
 
 build.sbt
 ```scala
 libraryDependencies ++= Seq(
-  "org.planet42" %% "laika-core" % "0.18.1",
-  "org.planet42" %% "laika-io" % "0.18.1",
+  "org.planet42" %% "laika-core" % "0.18.2",
+  "org.planet42" %% "laika-io" % "0.18.2",
   "dev.i10416" %% "petit" % "<version above>",
-  "org.typelevel" %% "cats-effect" % "3.3.4",
+  "org.typelevel" %% "cats-effect" % "3.3.11",
 )
 ```
 
@@ -25,9 +25,9 @@ or ammonite scala script
 or
 ```scala
 import $ivy.`dev.i10416::petit:<version above>`
-import $ivy.`org.planet42::laika-core:0.18.1`
-import $ivy.`org.planet42::laika-io:0.18.1`
-import $ivy.`org.typelevel::cats-effect:3.3.1`
+import $ivy.`org.planet42::laika-core:0.18.2`
+import $ivy.`org.planet42::laika-io:0.18.2`
+import $ivy.`org.typelevel::cats-effect:3.3.11`
 ```
 
 Directory Structure
