@@ -18,16 +18,9 @@
     <div class="spacer"></div>
     <div class="entries">
       <h1>articles</h1>
-      @:navigationTree {
-      entries = [
-      { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
-      ]
-      }
+      ${cursor.currentDocument.content}
     </div>
     <div class="spacer"></div>
-    <script>
-      App.init();
-    </script>
   </div>
 </body>
 

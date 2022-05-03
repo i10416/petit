@@ -1,5 +1,6 @@
 import sbt._
 import sbtcrossproject.CrossPlugin.autoImport.crossProject
+
 val scala212 = "2.12.15"
 val scala213 = "2.13.8"
 val scala3 = "3.1.2"
@@ -20,7 +21,6 @@ inThisBuild(
       )
     ),
     scalacOptions ++= Seq("-feature", "-deprecation"),
-    scalacOptions ++= Seq("-language:higherKinds"),
     sonatypeCredentialHost := "s01.oss.sonatype.org",
     sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
   )

@@ -27,6 +27,11 @@ import cats.effect.IO
 import laika.ast.InternalTarget
 import laika.ast.ExternalTarget
 import laika.ast.Retain
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 
 object Petit extends ThemeProvider {
 
@@ -43,6 +48,10 @@ object Petit extends ThemeProvider {
     .withValue(
       "petit.site.includeJS",
       (Path.Root / "petit" / "js") +: Nil
+    )
+    .withValue(
+      "petit.site.generator",
+      "Laika 0.18.2+Petit"
     )
     .withValue(PlainIcons.registry)
 
@@ -66,23 +75,22 @@ object Petit extends ThemeProvider {
       "main.js",
       Path.Root / "petit" / "js" / "main.js"
     )
-
+  // note: 同様にして tree.root.allDocuments.map(document => document.withSEOConfigs(...))
   private def addListPage[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli {
     tree =>
-      val (landingPageContent, fragments, landingPageConfig) =
-        (RootElement.empty, Map.empty[String, Element], tree.root.config)
-      val titleDoc =
+      val articleListDocument =
         TitleDocumentConfig.inputName(tree.root.config).map { inputName =>
           Document(
             path = Path.Root / inputName,
-            content = landingPageContent,
-            fragments = fragments,
+            // ここで tree.root.allDocuments.map( => (title,published date, abstract)).map( => Seq(Block(_))) を差し込む
+            // list.template.html からは ${cursor.currentDocument.content} で内容を得る
+            content = RootElement.empty,
+            fragments = Map.empty,
             config =
-              landingPageConfig.withValue(LaikaKeys.versioned, false).build
+              tree.root.config.withValue(LaikaKeys.versioned, false).build
           )
         }
-
-      val withTemplate = titleDoc.map(doc =>
+      val withTemplate = articleListDocument.map(doc =>
         doc.copy(config =
           doc.config.withValue(LaikaKeys.template, "list.template.html").build
         )
@@ -91,7 +99,7 @@ object Petit extends ThemeProvider {
       val transformed = tree.copy(root =
         tree.root.copy(tree =
           tree.root.tree.copy(
-            titleDocument = Some(withTemplate.right.get),
+            titleDocument = withTemplate.toOption,
             content = tree.root.tree.content
           )
         )
