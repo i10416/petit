@@ -32,6 +32,12 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.text.SimpleDateFormat
+import laika.ast.Block
+import laika.ast.Paragraph
+import laika.ast.Options
+import laika.ast.Header
+import laika.ast.Target
+import laika.ast.NoOpt
 
 object Petit extends ThemeProvider {
 
@@ -68,6 +74,10 @@ object Petit extends ThemeProvider {
       Path.Root / "list.template.html"
     )
     .addClasspathResource(
+      "articles.template.html",
+      Path.Root / "articles.template.html"
+    )
+    .addClasspathResource(
       "theme.css",
       Path.Root / "petit" / "css" / "theme.css"
     )
@@ -78,13 +88,31 @@ object Petit extends ThemeProvider {
   // note: 同様にして tree.root.allDocuments.map(document => document.withSEOConfigs(...))
   private def addListPage[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli {
     tree =>
+      val entries = tree.root.allDocuments.map { doc =>
+        laika.ast.BlockSequence(
+          Seq(
+            Header(
+              3,
+              SpanLink
+                .internal(doc.path)
+                .apply(doc.title.getOrElse(SpanSequence(doc.path.name)))
+            ),
+            Paragraph("...."),
+            Paragraph.apply(
+              doc.config
+                .get[String]("laika.metadata.date")
+                .getOrElse("No Publish Date Available")
+            ),
+            laika.ast.Rule()
+          ),
+          NoOpt
+        )
+      }
       val articleListDocument =
         TitleDocumentConfig.inputName(tree.root.config).map { inputName =>
           Document(
             path = Path.Root / inputName,
-            // ここで tree.root.allDocuments.map( => (title,published date, abstract)).map( => Seq(Block(_))) を差し込む
-            // list.template.html からは ${cursor.currentDocument.content} で内容を得る
-            content = RootElement.empty,
+            content = RootElement(entries),
             fragments = Map.empty,
             config =
               tree.root.config.withValue(LaikaKeys.versioned, false).build
@@ -92,7 +120,9 @@ object Petit extends ThemeProvider {
         }
       val withTemplate = articleListDocument.map(doc =>
         doc.copy(config =
-          doc.config.withValue(LaikaKeys.template, "list.template.html").build
+          doc.config
+            .withValue(LaikaKeys.template, "articles.template.html")
+            .build
         )
       )
 
