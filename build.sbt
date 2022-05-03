@@ -31,6 +31,10 @@ lazy val lib = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "petit",
     scalaVersion := scala3,
+    scalacOptions ++= {
+      if (scalaVersion.value.startsWith("2.12")) Seq("-language:higherKinds")
+      else Nil
+    },
     crossScalaVersions := Seq(scala212, scala213, scala3),
     libraryDependencies ++= Dependencies.deps ++ Seq(
       "org.typelevel" %%% "cats-effect" % "3.3.11"

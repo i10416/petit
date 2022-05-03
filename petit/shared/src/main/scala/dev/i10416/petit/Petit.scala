@@ -18,6 +18,15 @@ import dev.i10416.petit.static.RSS
 import java.time.LocalDateTime
 import laika.ast.SpanSequence
 import cats.Monad
+import laika.ast.RewriteRules
+import laika.ast.Link
+import laika.ast.SpanLink
+import laika.ast.RewriteAction
+import laika.ast.Replace
+import cats.effect.IO
+import laika.ast.InternalTarget
+import laika.ast.ExternalTarget
+import laika.ast.Retain
 
 object Petit extends ThemeProvider {
 
@@ -78,6 +87,7 @@ object Petit extends ThemeProvider {
           doc.config.withValue(LaikaKeys.template, "list.template.html").build
         )
       )
+
       val transformed = tree.copy(root =
         tree.root.copy(tree =
           tree.root.tree.copy(
@@ -89,6 +99,49 @@ object Petit extends ThemeProvider {
 
       Sync[F].pure(transformed)
   }
+  /*private def enrichLinkIfPossible: Theme.TreeProcessor[IO] =
+    Kleisli { tree =>
+      import cats.syntax.traverse._
+      val docsWithRichLinksRulesF = tree.root.allDocuments.toList.traverse {
+        doc =>
+          val url2OGPInfoListF = doc.content
+            .collect {
+              // case RichLink(_,url,_,_) if !excludeRules.contains(url) => url
+              case SpanLink(a, ExternalTarget(url), c, d) =>
+                url
+            }
+            .traverse(u => /* fetchOGPInfo(url) >> */ IO(u -> u /*info*/ ))
+
+          for {
+            url2OGPInfoList <- url2OGPInfoListF
+          } yield {
+            val ruleList = url2OGPInfoList.map { case (url, ogpInfo) =>
+              RewriteRules.forBlocks {
+                // case RichLink(_,`url`,_,_) =>
+                // case SpanLink(_, ExternalTarget(`url`), _, _) =>
+                // Replace(OgpInfoElement(ogpInfo))
+                // Replace(???)
+                // case RichLink(_,url,_,_) => Rewrite(Block(SpanLink(_, ExternalTarget(url), _, _)))
+                case _ => Retain
+              }
+            }
+            doc -> ruleList.reduce { case (f, g) => f ++ g }
+          }
+      }
+      for {
+        docsWithRichLinksRules <- docsWithRichLinksRulesF
+      } yield {
+        val m = docsWithRichLinksRules.toMap
+        val r = tree.root.rewrite { cursor =>
+          m.get(cursor.target) match {
+            case Some(rules) =>
+              Right(rules)
+            case None => Right(RewriteRules.empty)
+          }
+        }
+        r.fold(_ => tree, tree.copy(_))
+      }
+    }*/
 
   /** Add rss in document tree
     */
@@ -130,6 +183,15 @@ object Petit extends ThemeProvider {
       )
     Sync[F].pure(tree.addStaticDocuments(Seq(sitemap)))
   }
+
+  def injectOgp = RewriteRules.forSpans {
+    case SpanLink(content, target, title, opt) =>
+      Replace(???)
+      ???
+  } /*RewriteRule[Block] = {
+
+      ???
+  }*/
 
   /** Build Petit theme. This theme also contains Laika Standard Directives,
     * GithubMarkdown Support and SyntaxHighlighting.

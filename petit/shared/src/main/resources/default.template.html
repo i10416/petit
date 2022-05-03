@@ -15,23 +15,25 @@
     <nav id="drawer">
       <div id="drawer-content">
         @:navigationTree {
-          entries = [
-          { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
-          ]
-          }
+        entries = [
+        { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
+        ]
+        }
       </div>
     </nav>
     <div id="main">
       <div id="content">
         <div class="spacer left"></div>
+        <p>${laika.metadata.date}</p>
+
         <div id="article">
           ${cursor.currentDocument.content}
         </div>
         <div class="spacer">
           @:navigationTree {
-            entries = [
-              { target = "#", excludeRoot = true, depth = 2 }
-            ]
+          entries = [
+          { target = "#", excludeRoot = true, depth = 2 }
+          ]
           }
         </div>
       </div>
@@ -51,4 +53,5 @@
     </div>
   </div>
 </body>
+
 </html>
