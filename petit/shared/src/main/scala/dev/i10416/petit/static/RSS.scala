@@ -3,6 +3,7 @@ package dev.i10416.petit.static
 import dev.i10416.petit.SiteMetaData
 import java.time.LocalDateTime
 import laika.time.PlatformDateFormat
+import dev.i10416.petit.MetaProps
 object RSS {
   private val theme = "Petit theme(github.com/i10416/petit)"
 
@@ -41,7 +42,7 @@ object RSS {
         |  <link rel='self' type='application/atom+xml' href='${baseURL}/atom.xml'> ${baseURL} </link>
         |
         |  <description>Recent contents on ${baseURL}</description>
-        |  <generator>Laika(planet42.org/Laika) with $theme </generator>
+        |  <generator>${MetaProps.generator}</generator>
         |  ${language.fold("")(l => s"<language>$l</language>")}
 |  <copyright>${ /*copyWrightOwners.mkString(", ")*/
        } </copyright>
@@ -65,7 +66,7 @@ object RSS {
         |    <title> ${title}</title>
         |    <link> ${baseURL} </link>
         |    <description>Recent contents on ${baseURL}</description>
-        |    <generator>Laika(planet42.org/Laika) with $theme </generator>
+        |    <generator>${MetaProps.generator}</generator>
         |    ${language.fold("")(l => s"<language>$l</language>")}
 |    <copyright>${ /*metaData.copyWrightOwners.mkString(", ")*/
        } </copyright>

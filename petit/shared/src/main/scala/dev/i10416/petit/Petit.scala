@@ -57,7 +57,7 @@ object Petit extends ThemeProvider {
     )
     .withValue(
       "petit.site.generator",
-      "Laika 0.18.2+Petit"
+      MetaProps.generator
     )
     .withValue(PlainIcons.registry)
 
@@ -68,10 +68,6 @@ object Petit extends ThemeProvider {
     .addClasspathResource(
       "default.template.html",
       Path.Root / "default.template.html"
-    )
-    .addClasspathResource(
-      "list.template.html",
-      Path.Root / "list.template.html"
     )
     .addClasspathResource(
       "articles.template.html",
@@ -85,9 +81,30 @@ object Petit extends ThemeProvider {
       "main.js",
       Path.Root / "petit" / "js" / "main.js"
     )
+  private def commonSEOPropsProvider[F[_]: Sync]: Theme.TreeProcessor[F] =
+    Kleisli { tree =>
+      val withSEOProps = tree.root.mapDocuments {
+        case doc @ Document(_, _, _, config, _) =>
+          doc.copy(
+            config = config
+              .withValue(
+                "petit.seo.og.title",
+                doc.title.getOrElse(SpanSequence.empty).extractText
+              )
+              .withValue(
+                "petit.seo.og.description",
+                "..."
+              )
+              .build
+          )
+      }
+      Sync[F].pure(tree.copy(root = withSEOProps))
+    }
   // note: 同様にして tree.root.allDocuments.map(document => document.withSEOConfigs(...))
   private def addListPage[F[_]: Sync]: Theme.TreeProcessor[F] = Kleisli {
     tree =>
+      // tree.staticDocuments(*).sourceFile.name endsWith .css =>
+      // doc.input.map(_.through(fs2.text.utf9.decode).through(minifyCSS))
       val entries = tree.root.allDocuments.map { doc =>
         laika.ast.BlockSequence(
           Seq(
@@ -118,13 +135,17 @@ object Petit extends ThemeProvider {
               tree.root.config.withValue(LaikaKeys.versioned, false).build
           )
         }
-      val withTemplate = articleListDocument.map(doc =>
-        doc.copy(config =
-          doc.config
-            .withValue(LaikaKeys.template, "articles.template.html")
-            .build
-        )
-      )
+      val withTemplate = articleListDocument.map {
+        case doc @ Document(_, _, _, config, _) =>
+          doc.copy(config =
+            config
+              .withValue(
+                LaikaKeys.template,
+                "articles.template.html"
+              )
+              .build
+          )
+      }
 
       val transformed = tree.copy(root =
         tree.root.copy(tree =
@@ -247,5 +268,6 @@ object Petit extends ThemeProvider {
     .processTree(addListPage, HTML)
     .processTree(addSiteMap, HTML)
     .processTree(addRSS, HTML)
+    .processTree(commonSEOPropsProvider, HTML)
     .build
 }
