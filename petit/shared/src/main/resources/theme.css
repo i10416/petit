@@ -56,12 +56,24 @@ a:hover {
   transition: opacity 0.2s ease;
 }
 
-/* Remove list styles (bullets/numbers) */
-ol,
 ul,
+ol {
+  padding-inline-start: 20px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol.nav-list,
+ul.nav-list,
 menu {
   list-style: none;
+  padding-inline-start: 10px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
+
+
 
 
 /* For images to not be able to exceed their container */
