@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="${?laika.site.metadata.language}">
+<html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,8 +8,9 @@
   <meta property="og:title" content="${cursor.currentDocument.title}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="format-detection" content="email=no,telephone=no,address=no" />
-  <title>${cursor.currentDocument.title}</title>
+  <title>${?laika.site.metadata.title}</title>
   @:linkCSS { paths = ${petit.site.includeCSS} }
+  @:linkJS { paths = ${petit.site.includeJS} }
 </head>
 
 <body>
@@ -22,70 +22,25 @@
     </nav>
   </div>
   <!--shared-->
-
-  <div class="structural-section" id="section-main">
-    <div id="cols-main">
-      <div id="col-main-content-aux-left">
-        <div id="main-content-aux-left"></div>
-      </div>
-      <div id="col-main-content">
-        <div id="article">
-          <div id="article-header">
-            @:breadcrumb
-          </div>
-          <div id="main-content-article-props-top">
-            Published at ${laika.metadata.date}
-          </div>
-          <article id="main-content-article">
-            ${cursor.currentDocument.content}
-          </article>
-          <div id="main-content-article-action">
-            <!--e.g. social button, report infringement, edit on GitHub -->
-          </div>
-          <div id="main-content-article-props-bottom">
-            <!--e.g. tags, publish date, revision -->
-          </div>
+  <div class="structural-section" id="section-article-index">
+    <div id="cols-article-index">
+      <div id="col-article-index-aux-left"></div>
+      <div id="col-article-index">
+        <div>
+          <h2 id="title-article-index">Articles</h2>
+          <p class="title-caption">記事一覧</p>
         </div>
-        <div id="article-aux">
-          <div id="cols-article-aux-adjucents">
-            <div id="col-article-aux-adjucent-prev">
-              @:prevDoc
-            </div>
-            <div id="col-article-aux-adjucent-next">
-              @:nextDoc
-            </div>
-          </div>
+        <div id="article-entries">
+          @:navigationTree {
+          entries = [
+          { target = "/", excludeRoot = true, excludeSections = true, depth = 2 }
+          ]
+          }
         </div>
       </div>
-      <div id="col-main-content-aux-right">
-        <div id="main-content-aux-right">
-          <div id="main-content-aux-right-author">
-          </div>
-          <div id="main-content-aux-right-toc">
-            <h3>Table of Contents</h3>
-            <p class="title-caption">目次</p>
-            @:navigationTree {
-            entries = [
-            { target = "#", excludeRoot = true, depth = 2 }
-            ]
-            }
-          </div>
-        </div>
-      </div>
+      <div id="col-article-index-aux-right"></div>
     </div>
   </div>
-
-  <div class="structural-section" id="section-content-minor">
-    <div id="minor">
-    </div>
-  </div>
-
-  <div class="structural-section" id="section-content-footer">
-    <div id="content-footer">
-    </div>
-  </div>
-
-
   <!--shared-->
   <div class="structural-section" id="section-footer">
     <div id="cols-footer">
@@ -100,13 +55,13 @@
           <div id="col-footer-misc-recent-posts">
             <div class="semantic-section" id="footer-section-recent-posts">
               <h2>Recent Posts</h2>
-              <p id="footer-section-recent-posts-caption">最近の投稿</p>
+              <p class="title-caption">最近の投稿</p>
             </div>
           </div>
           <div id="col-footer-misc-categories">
             <div class="semantic-section" id="footer-section-categories">
               <h2>Categories</h2>
-              <p id="footer-section-categories-caption">カテゴリ一覧</p>
+              <p class="title-caption">カテゴリ一覧</p>
             </div>
           </div>
           <div id="col-footer-misc-subscribe">
@@ -127,4 +82,5 @@
   </div>
   <!--shared-->
 </body>
+
 </html>
