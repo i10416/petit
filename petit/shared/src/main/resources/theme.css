@@ -268,6 +268,13 @@ body {
   color: #ededea;
 }
 
+a.brand-title-link {
+  color: #ededea;
+  font-size: 15px;
+  line-height: 2.0em;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
 body p.title-caption {
   color: #a9b0b7;
 }
@@ -282,6 +289,10 @@ body p.title-caption {
 
 #cols-footer {
   display: flex;
+}
+
+#footer-section-brand {
+  text-align: center;
 }
 
 @media(max-width: 768px) {
@@ -391,13 +402,31 @@ a#footer-section-icons-twitter>span>svg.petit-plain-icon.twitter {
   flex: 2 1 auto;
 }
 
+div#article-entries>div.article-entry {
+  padding: 1em 0em;
+}
+
 div#article-entries>ul.nav-list {
   padding-left: 0;
+}
+
+h3.article-entry-link {
+  margin: 0;
+}
+
+h3.article-entry-link>a {
+  padding: 1em 0em;
+  display: block;
 }
 
 div#article-entries>ul>li>a {
   padding: 1em 0em;
   display: block;
+}
+
+div.article-entry>p.article-entry-published-at {
+  color: #a9b0b7;
+  font-size: 14px;
 }
 
 #col-article-index-aux-right {
