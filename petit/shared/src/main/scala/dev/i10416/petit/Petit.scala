@@ -55,8 +55,8 @@ object Petit extends ThemeProvider {
       Path.Root / "default.template.html"
     )
     .addClasspathResource(
-      "articles.template.html",
-      Path.Root / "articles.template.html"
+      "index.template.html",
+      Path.Root / "index.template.html"
     )
     .addClasspathResource(
       "theme.css",
@@ -98,16 +98,16 @@ object Petit extends ThemeProvider {
               SpanLink
                 .internal(doc.path)
                 .apply(doc.title.getOrElse(SpanSequence(doc.path.name)))
+            ).withOptions(
+              Options(None, Set("article-entry-link"))
             ),
-            Paragraph("...."),
-            Paragraph.apply(
+            Paragraph(
               doc.config
                 .get[String]("laika.metadata.date")
-                .getOrElse("No Publish Date Available")
-            ),
-            Rule()
+                .fold(_ => "No Publish Date Available", t => s"Published at $t")
+            ).withOptions(Options(None, Set("article-entry-published-at")))
           ),
-          NoOpt
+          Options(None, Set("article-entry"))
         )
       }
       val articleListDocument =
@@ -126,7 +126,7 @@ object Petit extends ThemeProvider {
             config
               .withValue(
                 LaikaKeys.template,
-                "articles.template.html"
+                "index.template.html"
               )
               .build
           )
