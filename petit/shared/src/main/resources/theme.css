@@ -283,12 +283,18 @@ body p.title-caption {
 #cols-footer {
   display: flex;
 }
-@media(max-width: 768px)  {
+
+@media(max-width: 768px) {
   div#cols-footer {
     display: block;
   }
+
   div#cols-footer-misc-items {
     display: block;
+  }
+
+  div#main-content-aux-right-toc {
+    display: none;
   }
 }
 
@@ -296,6 +302,52 @@ body p.title-caption {
   flex: 1 1 auto;
   padding: 2em;
   min-height: 240px;
+}
+
+div#footer-section-icons {
+  padding: 1em;
+}
+
+div#cols-footer-section-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div#col-footer-section-icons-twitter {
+  text-align: center;
+  display: block;
+}
+
+div#col-footer-section-icons-github {
+  text-align: center;
+  display: block;
+}
+
+a#footer-section-icons-github {
+  display: block;
+  padding: 1em;
+}
+
+a#footer-section-icons-github:hover {
+  opacity: 0.8;
+}
+
+a#footer-section-icons-github>span>svg.petit-plain-icon.github {
+  width: 2.5em;
+}
+
+a#footer-section-icons-twitter {
+  display: block;
+  padding: 1em;
+}
+
+a#footer-section-icons-twitter:hover {
+  opacity: 0.8;
+}
+
+a#footer-section-icons-twitter>span>svg.petit-plain-icon.twitter {
+  width: 2.5em;
 }
 
 #col-footer-misc {
@@ -338,13 +390,15 @@ body p.title-caption {
 #col-article-index {
   flex: 2 1 auto;
 }
-div#article-entries > ul.nav-list {
+
+div#article-entries>ul.nav-list {
   padding-left: 0;
 }
-div#article-entries > ul > li > a {
+
+div#article-entries>ul>li>a {
   padding: 1em 0em;
   display: block;
-} 
+}
 
 #col-article-index-aux-right {
   flex: 1 4 auto;
@@ -414,9 +468,11 @@ div#col-main-content {
   flex: 2 2 auto;
   max-width: 80%;
 }
+
 article#main-content-article {
   padding: 1em;
 }
+
 #main-content-article-props-top {
   padding: 1em 1em;
 }
