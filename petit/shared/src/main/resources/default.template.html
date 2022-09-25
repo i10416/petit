@@ -17,7 +17,11 @@
   <!--shared-->
   <div class="structural-section" id="section-site-header">
     <nav id="cols-site-header">
-      <div id="col-site-header-brand">${?laika.site.metadata.title}</div>
+      <div id="col-site-header-brand">
+        <a class="brand-title-link" href="/">
+          ${?laika.site.metadata.title}
+        </a>
+      </div>
       <div id="col-site-header-h-expand"></div>
     </nav>
   </div>
@@ -91,18 +95,22 @@
     <div id="cols-footer">
       <div id="col-footer-brand">
         <div class="semantic-section" id="footer-section-brand">
-          <h2>${?laika.site.metadata.title}</h2>
+          <h2>
+            <a class="brand-title-link" href="/">
+              ${?laika.site.metadata.title}
+            </a>
+          </h2>
           <p id="footer-section-brand-caption">${?laika.site.metadata.description}</p>
         </div>
         <div class="semantic-section" id="footer-section-icons">
           <div id="cols-footer-section-icons">
             <div id="col-footer-section-icons-twitter">
-              <a id="footer-section-icons-twitter" href="https://twitter.com/">
+              <a id="footer-section-icons-twitter" href="https://twitter.com/${?petit.site.twitter}">
                 @:icon(twitter)
               </a>
             </div>
             <div id="col-footer-section-icons-github">
-              <a id="footer-section-icons-github" href="https://github.com/">
+              <a id="footer-section-icons-github" href="https://github.com/${?petit.site.github}">
                 @:icon(github)
               </a>
             </div>
