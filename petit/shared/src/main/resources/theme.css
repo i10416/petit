@@ -77,6 +77,7 @@ menu {
 
 
 
+
 /* For images to not be able to exceed their container */
 img {
   max-width: 100%;
@@ -267,6 +268,8 @@ body {
   background-color: #232323;
   color: #ededea;
 }
+
+
 
 a.brand-title-link {
   color: #ededea;
@@ -482,6 +485,7 @@ p#section-bottom-generator {
 
 
 /*BEGIN ARTICLE*/
+
 #cols-main {
   display: flex;
 }
@@ -498,8 +502,15 @@ div#col-main-content {
   max-width: 80%;
 }
 
+
+
+
 article#main-content-article {
   padding: 1em;
+}
+
+#main-content-article > ol.arabic {
+  list-style-type: decimal;
 }
 
 #main-content-article-props-top {
