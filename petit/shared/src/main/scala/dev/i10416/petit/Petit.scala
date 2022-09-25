@@ -55,8 +55,8 @@ object Petit extends ThemeProvider {
       Path.Root / "default.template.html"
     )
     .addClasspathResource(
-      "articles.template.html",
-      Path.Root / "articles.template.html"
+      "index.template.html",
+      Path.Root / "index.template.html"
     )
     .addClasspathResource(
       "theme.css",
@@ -126,7 +126,7 @@ object Petit extends ThemeProvider {
             config
               .withValue(
                 LaikaKeys.template,
-                "articles.template.html"
+                "index.template.html"
               )
               .build
           )
