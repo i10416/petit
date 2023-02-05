@@ -526,7 +526,7 @@ div#cols-article-aux-adjucents {
 
 @media(max-width: 768px) {
   div#col-main-content {
-    max-width: 90%;
+    max-width: 100%;
   }
 
   div#col-main-content-aux-left {
