@@ -299,6 +299,18 @@ body p.title-caption {
 }
 
 @media(max-width: 768px) {
+  div#col-main-content {
+    max-width: 90%;
+  }
+
+  div#col-main-content-aux-left {
+    padding: 0;
+  }
+
+  div#col-main-content-aux-right {
+    padding: 0;
+  }
+
   div#cols-footer {
     display: block;
   }
@@ -509,7 +521,7 @@ article#main-content-article {
   padding: 1em;
 }
 
-#main-content-article > ol.arabic {
+#main-content-article>ol.arabic {
   list-style-type: decimal;
 }
 
