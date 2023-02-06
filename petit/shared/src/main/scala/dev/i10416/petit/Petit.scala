@@ -69,19 +69,31 @@ object Petit extends ThemeProvider {
   private def commonSEOPropsProvider[F[_]: Sync]: Theme.TreeProcessor[F] =
     Kleisli { tree =>
       val withSEOProps = tree.root.mapDocuments {
-        case doc @ Document(_, _, _, config, _) =>
+        case doc @ Document(_, _, _, config, _) => {
+          val ogTitle =
+            config.getOpt[String]("og.title").fold(_ => None, identity)
+          val description =
+            config.getOpt[String]("description").fold(_ => None, identity)
+          val ogDescription =
+            config
+              .getOpt[String]("og.description")
+              .fold(_ => None, identity)
+              .orElse(description)
+              .fold("")(identity)
+
           doc.copy(
             config = config
               .withValue(
                 "petit.seo.og.title",
-                doc.title.getOrElse(SpanSequence.empty).extractText
+                doc.title.map(_.extractText).orElse(ogTitle).getOrElse("")
               )
               .withValue(
                 "petit.seo.og.description",
-                "..."
+                ogDescription
               )
               .build
           )
+        }
       }
       Sync[F].pure(tree.copy(root = withSEOProps))
     }
@@ -93,20 +105,30 @@ object Petit extends ThemeProvider {
       val entries = tree.root.allDocuments.map { doc =>
         BlockSequence(
           Seq(
-            Header(
-              3,
-              SpanLink
-                .internal(doc.path)
-                .apply(doc.title.getOrElse(SpanSequence(doc.path.name)))
-            ).withOptions(
-              Options(None, Set("article-entry-link"))
+            Some(
+              Header(
+                3,
+                SpanLink
+                  .internal(doc.path)
+                  .apply(doc.title.getOrElse(SpanSequence(doc.path.name)))
+              ).withOptions(
+                Options(None, Set("article-entry-link"))
+              )
             ),
-            Paragraph(
-              doc.config
-                .get[String]("laika.metadata.date")
-                .fold(_ => "No Publish Date Available", t => s"Published at $t")
-            ).withOptions(Options(None, Set("article-entry-published-at")))
-          ),
+            doc.config
+              .getOpt[String]("description")
+              .fold(_ => None, desc => desc.map(Paragraph(_))),
+            Some(
+              Paragraph(
+                doc.config
+                  .get[String]("laika.metadata.date")
+                  .fold(
+                    _ => "No Publish Date Available",
+                    t => s"Published at $t"
+                  )
+              ).withOptions(Options(None, Set("article-entry-published-at")))
+            )
+          ).flatten,
           Options(None, Set("article-entry"))
         )
       }
